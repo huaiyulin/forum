@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 gem 'bootstrap-sass', '~> 3.3.5.1'
+gem "simple_form"
 gem 'rails', '4.2.2'
 gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
