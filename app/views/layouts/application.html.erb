@@ -7,10 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<%= render 'common/navbar' %>
-	<div style="margin: 2px">
-		<%= yield %>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<%= render 'common/navbar' %>
+			<div class="row">
+				<div class="col-md-12">
+					<%= yield %>
+				</div>
+			</div>
+			<%= render 'common/footer' %>
+		</div>
 	</div>
-	<%= render 'common/footer' %>
 </body>
 </html>
