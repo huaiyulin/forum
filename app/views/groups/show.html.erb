@@ -23,7 +23,7 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= post.content %></td>
+        <td><%= simple_format(post.content) %></td>
         <td>
           <%# 這裏很重要，是利用 editable_by? 的方式，而非直接寫說 current_user == author，目的是為了讓這件事拆解得更細，未來可以同步更動%>
           <% if current_user && post.editable_by?(current_user) %>
