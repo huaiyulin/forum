@@ -1,5 +1,8 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only:[:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_general_group, only:[:show]
+  before_action :set_user_group, only:[:edit, :update, :destroy]
+
 	def index
     @groups = Group.all
   end
@@ -12,13 +15,13 @@ class GroupsController < ApplicationController
   end
 
   def new
-    @group = Group.new
+    @group = current_user.groups.new
   end
 
   def create
     # both OK 
     # @group = Group.create(group_params)
-    @group = Group.new(group_params)
+    @group = current_user.groups.new(group_params)
     if @group.save
       redirect_to @group, notice: 'Group was successfully created.'
     else
@@ -42,8 +45,12 @@ class GroupsController < ApplicationController
 
   private
 
-  def set_group
+  def set_general_group
     @group = Group.find(params[:id])
+  end
+
+  def set_user_group
+    @group = current_user.groups.find(params[:id])
   end
 
   def group_params

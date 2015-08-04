@@ -1,6 +1,8 @@
 <div class="group">
 	<%= link_to("New Post", new_group_post_path(@group), class: "btn btn-primary pull-right", style: "margin-left: 10px;") %>
-  <%= link_to("Edit", edit_group_path(@group), class: "btn btn-primary pull-right")%>
+  <% if current_user && @group.editable_by?(current_user) %>
+    <%= link_to("Edit", edit_group_path(@group), class: "btn btn-primary pull-right")%>
+  <% end %>
 </div>
 <h2><%= @group.title %></h2>
 <p><%= @group.description %></p>
@@ -16,8 +18,11 @@
       <tr>
         <td><%= post.content %></td>
         <td>
-          <%= link_to("Edit", edit_group_post_path(post.group, post), class: "btn btn-default btn-xs")%>
-          <%= link_to("Delete", group_post_path(post.group, post), class: "btn btn-default btn-xs ", method: :delete, data: { confirm: "Are you sure?" } )%>
+          <%# 這裏很重要，是利用 editable_by? 的方式，而非直接寫說 current_user == author，目的是為了讓這件事拆解得更細，未來可以同步更動%>
+          <% if current_user && post.editable_by?(current_user) %>
+            <%= link_to("Edit", edit_group_post_path(post.group, post), class: "btn btn-default btn-xs")%>
+            <%= link_to("Delete", group_post_path(post.group, post), class: "btn btn-default btn-xs ", method: :delete, data: { confirm: "Are you sure?" } )%>
+          <% end %>
         </td>
       </tr>
     <% end %>

@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'devise', '~> 3.5.1'
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem "simple_form"
 gem 'rails', '4.2.2'
